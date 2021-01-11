@@ -1,7 +1,10 @@
 const BillingCycle = require("./billingCycle.js");
+const errorHandle = require("../commum/errorHandle.js");
+const billingCycle = require("./billingCycle.js");
 
 BillingCycle.methods(["get", "post", "put", "delete"]);
 BillingCycle.updateOptions({ new: true, runValidators: true });
+billingCycle.after("post", errorHandle).after("put", errorHandle);
 
 // Rota de GET está com problema por conta das versões das bibliotecas instaladoas.
 // Para solucionar é preciso do código abaixo.
