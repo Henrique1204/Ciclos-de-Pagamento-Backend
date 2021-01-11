@@ -15,7 +15,7 @@ BillingCycle.route('get', (req, res, next) => {
         } else {
             res.status(500).json({errors: [error]})
         }
-    });
+    }).skip(req.query.skip).limit(req.query.limit);
 });
 
 BillingCycle.route("count", (req, res, next) => {
