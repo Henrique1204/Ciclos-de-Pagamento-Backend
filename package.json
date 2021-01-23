@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/Henrique1204/My-Money-App-Backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-query-int": "^1.0.1",
+    "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.13.19",
     "mongoose-paginate": "^5.0.3",
