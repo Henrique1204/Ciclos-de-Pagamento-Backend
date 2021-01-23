@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const User = require("./user.js");
 const env = require("../../.env");
 
-const emailRegex = /\S+@\S+\.\S+/;
-const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
+const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
 const sendErrosFromDB = (res, dbErrors) => {
     const errors = [];
@@ -23,7 +23,7 @@ const login = (req, res) => {
         if (err) {
             return sendErrosFromDB(res, err);
         } else if (user && bcrypt.compareSync(password, user.password)) {
-            const token = jwt.sign(user, env.authSecret, {
+            const token = jwt.sign(user.toJSON(), env.authSecret, {
                 expiresIn: "1 day"
             });
 
@@ -54,7 +54,7 @@ const signUp = (req, res) => {
     if (!password.match(passwordRegex)) {
         return res.status(400).send({
             errors: [
-                "Senha precisa ter: uma letra maiúscula, uma letra minúscula, um número, um caractere especial e ter de 6 - 20 caracteres"
+                "Senha precisa ter: Mínimo 8 caractes, 1 letra maiúscula e 1 numero."
             ]
         });
     }
